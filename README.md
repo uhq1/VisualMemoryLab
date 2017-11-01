@@ -1,3 +1,3 @@
 # VisualMemoryLab
-Sean D Kim
+Sean D Kim, 
 Ulani Qi
