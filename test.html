@@ -105,12 +105,12 @@
 	});
 	
 	function initExperiment(objects) {
-//		console.assert(objects.length == 40)
+		console.assert(objects.length == 80, objects.length)
 		var numVersion = [20,5,5,5,5]
 		var versions1 = []
 		var versions2 = []
-		for (var ver=0; ver<5; i++) {
-			for (var j=0; j<numVersion[i]; j++) {
+		for (var ver=0; ver<5; ver++) {
+			for (var j=0; j<numVersion[ver]; j++) {
 				versions1.push(ver)
 				versions2.push(ver)
 			}	
@@ -119,7 +119,7 @@
 		shuffleArray(versions2);
 		shuffleArray(objects);
 
-		for (var i=0; i<20; i++) {
+		for (var i=0; i<versions1.length; i++) {
 			// 1 second trials
 			word1 = objects[i]
 			ver1 = versions1[i]
@@ -131,14 +131,14 @@
 			
 			// 2 second trials
 			word2 = objects[20+i]
-			ver2 = versions2[20+i]
+			ver2 = versions2[i]
 			if (ver2 == 0) {
 				stimuli[2].push([word2, ver2, BETWEEN_WORDS_SEC2])
 			} else {
 				stimuli[3].push([word2, ver2, BETWEEN_WORDS_SEC2])
 			}
 		}
-		
+				
 		shuffleArray(stimuli)
 		console.log(stimuli)
 	}
@@ -167,7 +167,7 @@
 		clearPage()
 		between_words_sec = stimuli[trialIdx][0][2]
 		with_image = (stimuli[trialIdx][0][1] != 0)
-		console.log(stimuli[trialIdx][0], with_image)
+		console.log("Trial #" + String(trialIdx) + " starts with–", stimuli[trialIdx][0], with_image)
 			
 		var divStimulus = $('<div></div>').addClass("stimulus");
 		$('div.wrapper').append(divStimulus);
@@ -190,7 +190,7 @@
 				var version = pair[1]
 				var img_path = "images/" + word + '-' + String(version) + '.png'
 
-				if (with_image != 1) {
+				if (with_image) {
 					img = $("<img></img>").attr("src", img_path)
 					$('div.img').html(img)
 				}
