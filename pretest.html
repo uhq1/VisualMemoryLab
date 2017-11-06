@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		div.wrapper {
+			border: 2px solid black;
+			height: 400px;
+			width: 400px;
+			margin: auto;
+			display: flex;
+			align-items: center;
+			align-content: center;
+			justify-content: center;
+			font-family: verdana;
+		}
+
+		div.start {
+			font-size: 15px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding: 70px;
+		}
+		
+		button {
+			height: 30px;
+			width: 70px;
+		}
+		
+		span#word {
+			font-size: 50px;
+		}
+		
+	</style>
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+	
+	var i = 0
+	var objects = ['basketball', 'phone', 'garden', 'snail', 'clock', 
+								 'monkey', 'finger', 'cake', 'paper', 'egg', 
+								 'bread', 'balloon', 'magnet', 'soap', 'bookmark',
+								'fork', 'newspaper', 'camera', 'candle', 'tomato']
+	var intvlId = -1
+	
+	var secondBetweenPics = 1 //seconds between pictures
+	
+	$(document).ready(function(){
+		
+	});
+	
+	function nextWord() {
+		if (i < objects.length) {
+			word = objects[i]
+			$('#word').html(word)
+			i++
+		} else {
+			$('#word').html('')
+			clearInterval(intvlId)
+		}
+	}
+	
+	function startTrial() {
+		console.log("start trial")
+		$("div.start").remove()
+		intvlId = setInterval(nextWord, secondBetweenPics * 1000);
+	}
+	
+</script>
+</head>
+<body>
+
+<div class="wrapper">
+	<div>
+		<div class="start">
+			<span class="instruction">
+				Memorize as many words as you can. You will have 1 second for each word. 
+			</span>
+			<button onclick="startTrial()">Start Trial</button>
+		</div>
+		<span id="word"></span></div>
+	</div>
+</body>
+</html>
