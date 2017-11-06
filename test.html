@@ -91,7 +91,7 @@
 	
 	var subjectID;
 	var subjectCondition;
-	var numSec = 1000;
+	var numSec = 10;
 	var AFTER_STIMULI_BREAK = 30; //originally used 30
 	var BETWEEN_TRIALS_SEC = 120; //originally used 120
 	var BETWEEN_WORDS_SEC1 = 1; //originally used 1
@@ -250,26 +250,25 @@
 	
 	function renderTestPage() {	
 		clearPage()
-		var response;
 		data = responses[trialIdx]
 		
 		var wrapper = $("div.wrapper")
-		var responses = $("<div></div>").addClass("responses")
+		var div_responses = $("<div></div>").addClass("responses")
 		var h3 = $("<h3>Words Recalled</h3>")
 		var input = $('<input type="text" class="response" onkeypress="submitResponse(data)">')
 		input.focus()
 
 		var button= $('<button class="submit" onclick="submitResponse(data)">Submit</button>')
-		wrapper.append(responses);
-		responses.append(h3)
-		responses.append(initTimer(BETWEEN_TRIALS_SEC, function() {
+		wrapper.append(div_responses);
+		div_responses.append(h3)
+		div_responses.append(initTimer(BETWEEN_TRIALS_SEC, function() {
 			if (trialIdx < 4) {
 				renderInstruction(trialIdx)
 			} else {
 				renderFinishedScreen();
 			}
 		}))
-		responses.append("<ul></ul>")
+		div_responses.append("<ul></ul>")
 		wrapper.append(input)
 		wrapper.append(button)		
 	}
