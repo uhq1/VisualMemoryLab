@@ -281,23 +281,39 @@
 		console.log("renderFinishedScreen")
 		clearPage()
 		$("div.wrapper").html("Completed.");
-		printInfo();
+		saveInfo();
 	}
 		
-	function printInfo() {		
-		console.log(responses)
-		saveInfo()
-	}
-
 	function saveInfo(){
+		console.log(stimuli, responses)
+
 		var filename = subjectID+".txt";
-		var s1 = String(stimuli)
-		var s2 = String(responses)
+		
+		var s1 = ""
+		var s2 = ""
+		for (var i=0; i<4; i++) {
+			s1 += ("Stimuli #" + String(i) + ": " + list2str(stimuli[i]) + '\n')
+			s2 += ("Response #" + String(i) + ": " + list2str(responses[i]) + '\n')
+		}
+		
 		var blob = new Blob([s1, s2], {
 			 type: "text/plain;charset=utf-8"
 		});
 		
 		saveAs(blob, filename);
+		
+		function list2str(L) {
+			sL = "["
+			for (var j=0; j<L.length; j++) {
+				sL += ('(' + L[j] + ')')
+				
+				if (j != L.length - 1) {
+					sL += ','
+				}
+			}
+			sL += ']'
+			return sL
+		}
 	}
 
 	function submitResponse(data) {
