@@ -91,7 +91,7 @@
 	
 	var subjectID;
 	var numSec = 1000;
-	var AFTER_STIMULI_BREAK = 30; //originally used 30
+	var AFTER_STIMULI_BREAK = 3; //originally used 30
 	var BETWEEN_TRIALS_SEC = 120; //originally used 120
 	var BETWEEN_WORDS_SEC1 = 1; //originally used 1
   var BETWEEN_WORDS_SEC2 = 2; //originally used 2
@@ -129,7 +129,7 @@
 			}
 			
 			// 2 second trials
-			word2 = objects[20+i]
+			word2 = objects[40+i]
 			ver2 = versions2[i]
 			if (ver2 == 0) {
 				stimuli[2].push([word2, ver2, BETWEEN_WORDS_SEC2])
@@ -194,7 +194,7 @@
 					$('div.img').html(img)
 				}
 				
-				$('#word').html(word);
+				$('#word').html(word.replace(/_/g, " ")); //remove the underscore to space
 				idx++;
 			} else {
 				$('.stimulus').html('<h3>Completed.</h3> Please take 30 seconds break.')
@@ -275,12 +275,13 @@
 		div_responses.append("<ul></ul>")
 		wrapper.append(input)
 		wrapper.append(button)		
+		input.focus()
 	}
 	
 	function renderFinishedScreen() {
 		console.log("renderFinishedScreen")
 		clearPage()
-		$("div.wrapper").html("Completed.");
+		$("div.wrapper").html("Completed. The browser should have started downloading your response. If no download has started. Please raise your hand. ");
 		saveInfo();
 	}
 		
@@ -325,7 +326,7 @@
 				$("input.response").focus()
 			}else{
 				data.push(response)
-				var li = $("<li></li>").html(response).addClass(response)
+				var li = $("<li></li>").html(response).addClass(response.replace(/ /g, '_'))
 				$('div.responses').find('ul').append(li)
 				$("input.response").val("")
 
@@ -333,7 +334,7 @@
 				var button = $("<button>x</button>").addClass("remove-button")
 				button.click(function() {
 					var response = this.parentElement.className
-					$("li."+response).remove();
+					$("li."+response.replace(/ /g, '_')).remove();
 					data.splice(data.indexOf(response), 1)
 				})
 				li.append(button)
