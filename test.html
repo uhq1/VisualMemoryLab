@@ -91,7 +91,7 @@
 	
 	var subjectID;
 	var numSec = 1000;
-	var AFTER_STIMULI_BREAK = 3; //originally used 30
+	var AFTER_STIMULI_BREAK = 30; //originally used 30
 	var BETWEEN_TRIALS_SEC = 120; //originally used 120
 	var BETWEEN_WORDS_SEC1 = 1; //originally used 1
   var BETWEEN_WORDS_SEC2 = 2; //originally used 2
@@ -281,7 +281,7 @@
 	function renderFinishedScreen() {
 		console.log("renderFinishedScreen")
 		clearPage()
-		$("div.wrapper").html("Completed. The browser should have started downloading your response. If no download has started, please raise your hand. ");
+		$("div.wrapper").html("Completed. The browser should have started downloading your response. If no download has started, please raise your hand. <br> <br>Please take the post-experiment survey at https://sean506.typeform.com/to/QJn6sA");
 		saveInfo();
 	}
 		
