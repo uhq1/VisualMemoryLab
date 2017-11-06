@@ -90,12 +90,11 @@
 	var responses = [[], [], [], []]
 	
 	var subjectID;
-	var subjectCondition;
-	var numSec = 10;
+	var numSec = 1000;
 	var AFTER_STIMULI_BREAK = 30; //originally used 30
 	var BETWEEN_TRIALS_SEC = 120; //originally used 120
 	var BETWEEN_WORDS_SEC1 = 1; //originally used 1
-  var BETWEEN_WORDS_SEC2 = 2; //originally used 1
+  var BETWEEN_WORDS_SEC2 = 2; //originally used 2
 
 	$(document).ready(function(){
 		var objects = ['lightbulb', 'teddy', 'headphones', 'bicycle', 'apple', 'paint', 'battery', 'soap', 'fish', 'socks', 'cd', 'handcuff', 'motorcycle', 'scissors', 'letters', 'chair', 'hammer', 'chicken', 'cloud', 'fire_extinguisher', 'sunglasses', 'speakers', 'basketball', 'dice', 'clock', 'tv', 'spaghetti', 'backpack', 'bowl', 'microwave', 'hairbrush', 'nail_clippers', 'window', 'camera', 'tie', 'piano', 'hangers', 'bird', 'pan', 'pencil', 'soccerball', 'banana', 'whiteboard', 'fire', 'tree', 'mop', 'watch', 'pearl', 'chocolate', 'guitar', 'cake', 'notebook', 'umbrella', 'starbucks', 'key', 'flowers', 'lollipop', 'present', 'bread', 'box', 'toothbrush', 'laptop', 'rubberduck', 'stapler', 'pill', 'car', 'violin', 'cap', 'shoes', 'mailbox', 'cat', 'chalk', 'train', 'gloves', 'bottle', 'rock', 'cards', 'bandaid', 'scooter', 'glasses'];
@@ -226,7 +225,6 @@
 			renderInstruction() 
 			subjectID = inputID.val()
 			console.log(subjectID)
-			subjectCondition = "_N"
 		})
 		div1.append(button1)
 		div.append(div1)
@@ -255,14 +253,20 @@
 		var wrapper = $("div.wrapper")
 		var div_responses = $("<div></div>").addClass("responses")
 		var h3 = $("<h3>Words Recalled</h3>")
-		var input = $('<input type="text" class="response" onkeypress="submitResponse(data)">')
-		input.focus()
+		var input = $('<input type="text" class="response">')
+		input.keypress('keypress', function (e) {
+			var key = e.which || e.keyCode;
+			if (key === 13) {
+				button.trigger('click')
+			}
+		})
 
 		var button= $('<button class="submit" onclick="submitResponse(data)">Submit</button>')
 		wrapper.append(div_responses);
 		div_responses.append(h3)
 		div_responses.append(initTimer(BETWEEN_TRIALS_SEC, function() {
-			if (trialIdx < 4) {
+			if (trialIdx < 3) {
+				trialIdx++;
 				renderInstruction(trialIdx)
 			} else {
 				renderFinishedScreen();
@@ -286,6 +290,7 @@
 	}
 
 	function saveInfo(){
+		var filename = subjectID+".txt";
 		var s1 = String(stimuli)
 		var s2 = String(responses)
 		var blob = new Blob([s1, s2], {
@@ -294,7 +299,6 @@
 		
 		saveAs(blob, filename);
 	}
-
 
 	function submitResponse(data) {
 		console.log("submitResponse called")
@@ -312,7 +316,7 @@
 				//append a button that removes the word
 				var button = $("<button>x</button>").addClass("remove-button")
 				button.click(function() {
-					response = this.parentElement.className
+					var response = this.parentElement.className
 					$("li."+response).remove();
 					data.splice(data.indexOf(response), 1)
 				})
