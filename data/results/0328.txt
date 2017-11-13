@@ -1,0 +1,8 @@
+﻿Stimuli #0: [(speakers,0,2),(mailbox,0,2),(car,0,2),(handcuff,0,2),(scooter,0,2),(bowl,0,2),(pill,0,2),(umbrella,0,2),(soccerball,0,2),(gloves,0,2),(chocolate,0,2),(banana,0,2),(chalk,0,2),(piano,0,2),(cap,0,2),(cake,0,2),(headphones,0,2),(microwave,0,2),(rubberduck,0,2),(bread,0,2)]
+Stimuli #1: [(violin,2,2),(pan,4,2),(fire_extinguisher,1,2),(dice,3,2),(laptop,3,2),(box,1,2),(mop,4,2),(tie,2,2),(notebook,1,2),(lollipop,2,2),(toothbrush,3,2),(spaghetti,3,2),(hairbrush,4,2),(whiteboard,1,2),(paint,2,2),(soap,4,2),(lightbulb,3,2),(nail_clippers,4,2),(battery,1,2),(bandaid,2,2)]
+Stimuli #2: [(fish,0,1),(sunglasses,0,1),(pencil,0,1),(glasses,0,1),(key,0,1),(backpack,0,1),(cards,0,1),(pearl,0,1),(motorcycle,0,1),(letters,0,1),(guitar,0,1),(tree,0,1),(socks,0,1),(camera,0,1),(tv,0,1),(window,0,1),(shoes,0,1),(bottle,0,1),(basketball,0,1),(hammer,0,1)]
+Stimuli #3: [(cloud,4,1),(starbucks,1,1),(scissors,2,1),(hangers,4,1),(cd,1,1),(stapler,3,1),(chicken,4,1),(watch,1,1),(apple,1,1),(rock,3,1),(flowers,3,1),(fire,1,1),(clock,2,1),(bird,3,1),(bicycle,2,1),(chair,3,1),(train,4,1),(teddy,2,1),(cat,4,1),(present,2,1)]
+Response #0: [(chocolate),(banana),(mailbox),(car),(speakers),(headphones),(chalk),(ball),(radio),(soccer)]
+Response #1: [(battery),(nail-clippers),(bandaid),(whiteboard),(violin),(pan),(toothbrush),(fire),(fire-extinguisher)]
+Response #2: [(guitar),(sunglasses),(fish),(basketball),(sun),(clock)]
+Response #3: [(cloud),(fire),(starbucks),(cat),(clock),(scissors)]
