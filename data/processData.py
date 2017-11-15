@@ -78,6 +78,11 @@ class Subject:
 			
 	def categoryRes2csv(self): 
 		accs = []
+		csvs = []
+
+		for isImage in [0,1]:
+			pass
+
 		for t in self.trials: 
 			for acc in t.getAccuraciesByCategory(): 
 				accs.append(str(acc))
@@ -115,14 +120,12 @@ allRawData = getAllData(DATA_DIR)
 allData = dict()
 csvsCat = []
 csvsImg = []
-# hdrsCat = ['Subject', 'no image-short', 'context and color-short', 'no context and color-short', 'context and no color-short', 'no context and no color-short']
-# hdrsCat += ['no image-long', 'context and color-long', 'no context and color-long', 'context and no color-long', 'no context and no color-long']
-hdrsImg = ['Subject', 'image', 'long', 'res']
+hdrsCat = ['Subject', 'isLong', 'hasContext', 'hasColor', 'accuracy']
+hdrsImg = ['Subject', 'isLong', 'isImage', 'accuracy']
 for filename in allRawData: 
 	rawData = allRawData[filename]
 	subj = Subject(filename, rawData)
-	# csvsCat.append(subj.categoryRes2csv())
-
+	csvsCat.append(subj.categoryRes2csv())
 	csvsImg.append(subj.imageRes2csv())
 
 # csvCat = ",".join(hdrsCat) + "\n" + '\n'.join(csvsCat)

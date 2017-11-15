@@ -1,4 +1,4 @@
-Subject,image,long,res
+Subject,isLong,isImage,accuracy
 1127,0,0,0.25
 1127,0,1,0.15
 1127,1,0,0.3
