@@ -9,7 +9,7 @@
 			align-content: center;
 			justify-content: center;
 		}
-		
+
 		div.wrapper {
 			border: 2px solid black;
 			height: 700px;
@@ -28,17 +28,17 @@
 			width: 400px;
 			justify-content: space-around;
 		}
-		
+
 		div.start-page button {
 			height: 100px;
 			width: 100px;
 		}
-		
+
 		div.img {
 			height: 500px;
 			width: 500px;
 		}
-		
+
 		div.start {
 			font-size: 15px;
 			display: flex;
@@ -47,17 +47,17 @@
 			justify-content: center;
 			padding: 70px;
 		}
-		
+
 		img {
 			max-width:100%;
 			max-height:100%;
 		}
-		
+
 		button {
 			height: 30px;
 			width: 70px;
 		}
-		
+
 		span#word {
 			font-size: 50px;
 		}
@@ -73,22 +73,22 @@
 			padding: 70px;
 			width: 400px;
 		}
-		
+
 		button.remove-button {
 			width: 20px;
 			height: 20px;
 			margin-left: 20px;
 		}
-		
+
 	</style>
-	
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="FileSaver.js/FileSaver.js" type="text/javascript"></script>
 <script>
 	var trialIdx = 0
 	var stimuli = [[], [], [], []]
 	var responses = [[], [], [], []]
-	
+
 	var subjectID;
 	var numSec = 1000;
 	var AFTER_STIMULI_BREAK = 30; //originally used 30
@@ -98,11 +98,11 @@
 
 	$(document).ready(function(){
 		var objects = ['lightbulb', 'teddy', 'headphones', 'bicycle', 'apple', 'paint', 'battery', 'soap', 'fish', 'socks', 'cd', 'handcuff', 'motorcycle', 'scissors', 'letters', 'chair', 'hammer', 'chicken', 'cloud', 'fire_extinguisher', 'sunglasses', 'speakers', 'basketball', 'dice', 'clock', 'tv', 'spaghetti', 'backpack', 'bowl', 'microwave', 'hairbrush', 'nail_clippers', 'window', 'camera', 'tie', 'piano', 'hangers', 'bird', 'pan', 'pencil', 'soccerball', 'banana', 'whiteboard', 'fire', 'tree', 'mop', 'watch', 'pearl', 'chocolate', 'guitar', 'cake', 'notebook', 'umbrella', 'starbucks', 'key', 'flowers', 'lollipop', 'present', 'bread', 'box', 'toothbrush', 'laptop', 'rubberduck', 'stapler', 'pill', 'car', 'violin', 'cap', 'shoes', 'mailbox', 'cat', 'chalk', 'train', 'gloves', 'bottle', 'rock', 'cards', 'bandaid', 'scooter', 'glasses'];
-		
+
 		initExperiment(objects); // set stimuli, responses
 		renderStartPage();
 	});
-	
+
 	function initExperiment(objects) {
 		console.assert(objects.length == 80, objects.length)
 		var numVersion = [20,5,5,5,5]
@@ -112,8 +112,8 @@
 			for (var j=0; j<numVersion[ver]; j++) {
 				versions1.push(ver)
 				versions2.push(ver)
-			}	
-		} 
+			}
+		}
 		shuffleArray(versions1);
 		shuffleArray(versions2);
 		shuffleArray(objects);
@@ -127,7 +127,7 @@
 			} else {
 				stimuli[1].push([word1, ver1, BETWEEN_WORDS_SEC1])
 			}
-			
+
 			// 2 second trials
 			word2 = objects[40+i]
 			ver2 = versions2[i]
@@ -137,18 +137,18 @@
 				stimuli[3].push([word2, ver2, BETWEEN_WORDS_SEC2])
 			}
 		}
-				
+
 		shuffleArray(stimuli)
 		console.log(stimuli)
 	}
-		
+
 	function initTimer(totalSec, callBack) {
 		var sec = totalSec;
 		var timer = $("<div></div>").addClass("timer");
 		timer.html("seconds left: " + String(sec) + " seconds")
 		var id = setInterval(function() {
-			sec -= 1; 
-			$('.timer').html("seconds left: " + String(sec) + " seconds")	
+			sec -= 1;
+			$('.timer').html("seconds left: " + String(sec) + " seconds")
 
 			if (sec == 0) {
 				clearInterval(id)
@@ -157,32 +157,32 @@
 		}, 1 * numSec)
 		return timer
 	}
-	
+
 	function clearPage() {
 		$('div.wrapper').html(""); // clear page
 	}
-	
+
 	function startTrial() {
 		clearPage()
 		between_words_sec = stimuli[trialIdx][0][2]
 		with_image = (stimuli[trialIdx][0][1] != 0)
 		console.log("Trial #" + String(trialIdx) + " starts with–", stimuli[trialIdx][0], with_image)
-			
+
 		var divStimulus = $('<div></div>').addClass("stimulus");
 		$('div.wrapper').append(divStimulus);
-		
+
 		if (with_image) {
 			divImg = $('<div></div>').addClass('img')
 			divStimulus.append(divImg)
 		}
 		var span = $("<span></span>").attr("id", "word")
 		divStimulus.append(span)
-		
+
 		var idx = 0;
-		
-		function nextWord() {			
+
+		function nextWord() {
 			L = stimuli[trialIdx]
-			
+
 			if (idx < L.length) {
 				var pair = L[idx]
 				var word = pair[0]
@@ -193,7 +193,7 @@
 					img = $("<img></img>").attr("src", img_path)
 					$('div.img').html(img)
 				}
-				
+
 				$('#word').html(word.replace(/_/g, " ")); //remove the underscore to space
 				idx++;
 			} else {
@@ -203,11 +203,11 @@
 				clearInterval(intvlId);
 			}
 		}
-		
+
 		$("div.start").remove();
 		intvlId = setInterval(nextWord, between_words_sec * numSec);
 	}
-	
+
 	function renderStartPage() {
 		var wrapper = $("div.wrapper")
 		var div = $("<div></div>").addClass("start-page")
@@ -222,7 +222,7 @@
 
 		var div1 = $("<div></div>").addClass("buttonDiv")
 		var button1 = $("<button>Start Experiment</button>").click(function() {
-			renderInstruction() 
+			renderInstruction()
 			subjectID = inputID.val()
 			console.log(subjectID)
 		})
@@ -230,7 +230,7 @@
 		div.append(div1)
 		wrapper.append(div)
 	}
-	
+
 	function renderInstruction() {
 		clearPage()
 		var divStart = $('<div></div>').addClass('start')
@@ -245,11 +245,11 @@
 
 		divStart.append(button)
 	}
-	
-	function renderTestPage() {	
+
+	function renderTestPage() {
 		clearPage()
 		data = responses[trialIdx]
-		
+
 		var wrapper = $("div.wrapper")
 		var div_responses = $("<div></div>").addClass("responses")
 		var h3 = $("<h3>Words Recalled</h3>")
@@ -274,40 +274,40 @@
 		}))
 		div_responses.append("<ul></ul>")
 		wrapper.append(input)
-		wrapper.append(button)		
+		wrapper.append(button)
 		input.focus()
 	}
-	
+
 	function renderFinishedScreen() {
 		console.log("renderFinishedScreen")
 		clearPage()
-		$("div.wrapper").html("Completed. The browser should have started downloading your response. If no download has started, please raise your hand. <br> <br>Please take the post-experiment survey at https://sean506.typeform.com/to/QJn6sA");
+		$("div.wrapper").html("Completed. The browser should have started downloading your response. If no download has started, please raise your hand. <br> <br>Please take the post-experiment survey at <a href='https://sean506.typeform.com/to/QJn6sA'>https://sean506.typeform.com/to/QJn6sA</a>");
 		saveInfo();
 	}
-		
+
 	function saveInfo(){
 		console.log(stimuli, responses)
 
 		var filename = subjectID+".txt";
-		
+
 		var s1 = ""
 		var s2 = ""
 		for (var i=0; i<4; i++) {
 			s1 += ("Stimuli #" + String(i) + ": " + list2str(stimuli[i]) + '\n')
 			s2 += ("Response #" + String(i) + ": " + list2str(responses[i]) + '\n')
 		}
-		
+
 		var blob = new Blob([s1, s2], {
 			 type: "text/plain;charset=utf-8"
 		});
-		
+
 		saveAs(blob, filename);
-		
+
 		function list2str(L) {
 			sL = "["
 			for (var j=0; j<L.length; j++) {
 				sL += ('(' + L[j] + ')')
-				
+
 				if (j != L.length - 1) {
 					sL += ','
 				}
@@ -342,7 +342,7 @@
 			}
 		}
 	}
-	
+
 	/**
 	 * Randomize array element order in-place.
 	 * Using Durstenfeld shuffle algorithm.
@@ -358,7 +358,7 @@
 			}
 			return array
 	}
-	
+
 </script>
 </head>
 <body>

@@ -45,6 +45,7 @@ class Trial:
 				assert(numTotal[i] == 5)
 				accuracies.append(numCorrect[i]*1.0/numTotal[i])
 			return accuracies
+
 		else: 
 			numTotal = 0
 			numCorrect = 0
@@ -86,11 +87,15 @@ class Subject:
 
 	def imageRes2csv(self): 
 		accs = []
-		for t in self.trials: 
-			for acc in t.getAccuraciesByImage(): 
-				accs.append(str(acc))
+		csvs = []
+		for isImage in [0,1]: 
+			for isLong in [0,1]: 
+				t = self.trials[isImage*2+isLong]
+				res = t.getAccuraciesByImage()
+				s = [self.name, str(isImage), str(isLong), str(res[0])]
+				csvs.append(','.join(s)) 
 
-		csv = ",".join([self.name] + accs)
+		csv = "\n".join(csvs)
 		return csv
 
 def readFile(filename): 
@@ -110,15 +115,16 @@ allRawData = getAllData(DATA_DIR)
 allData = dict()
 csvsCat = []
 csvsImg = []
-hdrsCat = ['Subject', 'no image-short', 'context and color-short', 'no context and color-short', 'context and no color-short', 'no context and no color-short']
-hdrsCat += ['no image-long', 'context and color-long', 'no context and color-long', 'context and no color-long', 'no context and no color-long']
-hdrsImg = ['Subject', 'no image-short', 'image-short', 'no image-long', 'image-long']
+# hdrsCat = ['Subject', 'no image-short', 'context and color-short', 'no context and color-short', 'context and no color-short', 'no context and no color-short']
+# hdrsCat += ['no image-long', 'context and color-long', 'no context and color-long', 'context and no color-long', 'no context and no color-long']
+hdrsImg = ['Subject', 'image', 'long', 'res']
 for filename in allRawData: 
 	rawData = allRawData[filename]
 	subj = Subject(filename, rawData)
-	csvsCat.append(subj.categoryRes2csv())
+	# csvsCat.append(subj.categoryRes2csv())
+
 	csvsImg.append(subj.imageRes2csv())
 
-csvCat = ",".join(hdrsCat) + "\n" + '\n'.join(csvsCat)
+# csvCat = ",".join(hdrsCat) + "\n" + '\n'.join(csvsCat)
 csvImg = ",".join(hdrsImg) + "\n" + '\n'.join(csvsImg)
 print(csvImg)

@@ -13,7 +13,6 @@ for filename in os.listdir(IMG_FOLDER):
 objects = list(objects)
 print(objects)
 
-
 for word in objects: 
 	for i in range(1,5): 
 		filename = word + "-" + str(i) + ".png"
